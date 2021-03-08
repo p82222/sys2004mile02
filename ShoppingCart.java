@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Definition of shopping cart class
  */
-public class ShoppingCart extends Inventory{
+public class ShoppingCart {
 
     private double totalPrice;
     private ArrayList<Product> cartItem;
@@ -30,11 +30,11 @@ public class ShoppingCart extends Inventory{
 
         if(cartItem.contains(newProduct)){
             int id = newProduct.getId();
-            this.removeQuantity(id);
+            newProduct.removeQuantity(id);
         }else{
             cartItem.add(newProduct);
             int id = newProduct.getId();
-            this.removeQuantity(id);
+            newProduct.removeQuantity(id);
         }
 
         totalPrice += newProduct.price * inv.quantity;
@@ -52,7 +52,7 @@ public class ShoppingCart extends Inventory{
         else{
             cartItem.remove(oldProduct);
             int id = oldProduct.getId();
-            this.removeQuantity(id);
+            oldProduct.removeQuantity(id);
         }
         totalPrice -= oldProduct.price * inv.quantity;
     }
