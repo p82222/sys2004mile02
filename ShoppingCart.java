@@ -45,6 +45,8 @@ public class ShoppingCart extends Inventory{
      */
     public void removeFromCart(Product oldProduct){
 
+
+
         //find product in cart
         int currIndex = cartItem.indexOf(oldProduct);
 
@@ -52,12 +54,13 @@ public class ShoppingCart extends Inventory{
         if(currIndex == -1){
             return;
         }
-
         else{
-            ShoppingCart currItem = (ShoppingCart) cartItem.get(currIndex);
-            currItem.add(oldProduct);
-        }
+            cartItem.remove(oldProduct);
+            int id = oldProduct.getId();
+            this.addQuantity(id);
 
+        }
+        /*
         //subtract the removed products price from total price
         if(oldProduct.quantity > Inventory.currItem.quantity){
             oldProduct.quantity = currItem.quantity;
@@ -67,6 +70,10 @@ public class ShoppingCart extends Inventory{
         if(currItem.quantity == 0){
             cartItem.remove(currIndex);
         }
+
+         */
+
+
         totalPrice -= oldProduct.price * oldProduct.quantity;
         currItem.subtract(oldProduct);
     }
