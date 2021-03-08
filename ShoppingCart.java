@@ -12,6 +12,7 @@ public class ShoppingCart extends Inventory{
 
     private double totalPrice;
     private ArrayList<Product> cartItem;
+    private Inventory inv = new Inventory();
 
     /**
      * Creates a new Product with the supplied attributes.
@@ -27,7 +28,7 @@ public class ShoppingCart extends Inventory{
      */
     public void addToCart(Product newProduct){
 
-        if (cartItem.contains(newProduct)){
+        if(cartItem.contains(newProduct)){
             int id = newProduct.getId();
             this.removeQuantity(id);
         }else{
@@ -36,7 +37,7 @@ public class ShoppingCart extends Inventory{
             this.removeQuantity(id);
         }
 
-        totalPrice += newProduct.price * newProduct.quantity;
+        totalPrice += newProduct.price * inv.quantity;
     }
 
     /**
@@ -45,37 +46,15 @@ public class ShoppingCart extends Inventory{
      */
     public void removeFromCart(Product oldProduct){
 
-
-
-        //find product in cart
-        int currIndex = cartItem.indexOf(oldProduct);
-
-        //if no product just return same cart
-        if(currIndex == -1){
+        if(!cartItem.contains(oldProduct)){
             return;
         }
         else{
             cartItem.remove(oldProduct);
             int id = oldProduct.getId();
-            this.addQuantity(id);
-
+            this.removeQuantity(id);
         }
-        /*
-        //subtract the removed products price from total price
-        if(oldProduct.quantity > Inventory.currItem.quantity){
-            oldProduct.quantity = currItem.quantity;
-        }
-
-        //if product quantity = 0, remove product from cart
-        if(currItem.quantity == 0){
-            cartItem.remove(currIndex);
-        }
-
-         */
-
-
-        totalPrice -= oldProduct.price * oldProduct.quantity;
-        //currItem.subtract(oldProduct);
+        totalPrice -= oldProduct.price * inv.quantity;
     }
 
 
