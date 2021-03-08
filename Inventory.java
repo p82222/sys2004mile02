@@ -5,16 +5,15 @@
 
 import java.util.*;
 
-public class Inventory extends Product {
-
-    protected static Inventory currItem;
-    protected int price;
+public class Inventory{
 
     /**
      * The Inventory class will track the state of the inventory of your system. It should keep track of the type
      * and quantity of each Product.
      */
-    protected int quantity = 0;                    // quantity of Product
+    protected static Inventory currItem;
+    protected int price;                        // price of Product
+    protected int quantity = 0;                 // quantity of Product
     private Product product = null;             // set a default product as null
 
     /**
@@ -41,7 +40,6 @@ public class Inventory extends Product {
      * The product will be null and quantity is set to 0.
      */
     public Inventory(){
-
         this.product = null;
         this.quantity = 0;
     }
@@ -186,15 +184,15 @@ public class Inventory extends Product {
      * add product to another product
      * @param randomProduct
      */
-    public void add(Product randomProduct) {
-        this.quantity += randomProduct.quantity;
+    public void add(ShoppingCart randomProduct) {
+        this.quantity += randomProduct.inv.quantity;
     }
 
     /**
      * subtract random product from product
      * @param randomProduct
      */
-    public void subtract(Product randomProduct){
-        this.quantity -= randomProduct.quantity;
+    public void subtract(ShoppingCart randomProduct){
+        this.quantity -= randomProduct.inv.quantity;
     }
 }
