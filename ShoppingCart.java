@@ -11,44 +11,31 @@ import java.util.*;
 public class ShoppingCart extends Inventory{
 
     private double totalPrice;
-    private ArrayList<ShoppingCart> cartItem;
-    protected Inventory inv = new Inventory();
+    private ArrayList<Product> cartItem;
 
     /**
      * Creates a new Product with the supplied attributes.
      */
     public ShoppingCart() {
         this.totalPrice = 0;
-        this.cartItem = new ArrayList<ShoppingCart>();
+        this.cartItem = new ArrayList<Product>();
     }
 
     /**
      * Adds product to cart
      * @param newProduct
      */
-    public void addToCart(ShoppingCart newProduct){
+    public void addToCart(Product newProduct){
 
         if (cartItem.contains(newProduct)){
             int id = newProduct.getId();
             this.removeQuantity(id);
         }else{
-        //see if product is repetitive
-        int currIndex = cartItem.indexOf(newProduct);
-
-        //if its a new product add to cart
-        if(currIndex == -1){
->>>>>>> 5adddf5628f7c5094a30a231bab221733bc10643
             cartItem.add(newProduct);
             int id = newProduct.getId();
             this.removeQuantity(id);
         }
-        //if similar products add to quantity
-        else{
-            ShoppingCart currItem = (ShoppingCart) cartItem.get(currIndex);
-            currItem.add(newProduct);
-        }
-        //sum total price with quantity of product and that products price
-<<<<<<< HEAD
+
         totalPrice += newProduct.price * newProduct.quantity;
     }
 
@@ -56,7 +43,7 @@ public class ShoppingCart extends Inventory{
      * Removes product from cart
      * @param oldProduct
      */
-    public void removeFromCart(ShoppingCart oldProduct){
+    public void removeFromCart(Product oldProduct){
 
         //find product in cart
         int currIndex = cartItem.indexOf(oldProduct);
@@ -80,7 +67,7 @@ public class ShoppingCart extends Inventory{
         if(currItem.quantity == 0){
             cartItem.remove(currIndex);
         }
-        totalPrice -= oldProduct.price * oldProduct.inv.quantity;
+        totalPrice -= oldProduct.price * oldProduct.quantity;
         currItem.subtract(oldProduct);
     }
 
