@@ -46,7 +46,7 @@ public class ShoppingCart extends Inventory{
      * Removes product from cart
      * @param oldProduct
      */
-    public void removeProduct(ShoppingCart oldProduct){
+    public void removeFromCart(ShoppingCart oldProduct){
 
         //find product in cart
         int currIndex = cartItem.indexOf(oldProduct);
