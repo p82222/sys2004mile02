@@ -4,7 +4,22 @@ Keefer Belanger, St#101152085
 
 Questions:
 1.
-2.
-3. As you cannot use multiple inheritances, with composition you can have more functionality. Its also easier to modify later by changing behavior of methods. 
-Able to reuse code without an is-a association. Better encapsulation.
+2. It would make sense for ShoppingCart to extend Inventory as the shopping cart can just use the Inventories quantity methods to increase the quantity of products in the shopping cart.
+3. As you cannot use multiple inheritances, with composition you can have more functionality. Its also easier to modify later by changing behavior of methods. Able to reuse code without an is - a association. Better encapsulation.
 4. Using inheritance you can define a class by using a different class which can make creating that class easier and it also lets us reuse code.
+
+ChangeLog
+Inventory changelog:
+•	Added 3 new protected attributes, currItem, price, and quantity so the shopping cart class can inherit from them.
+•	Added a new getQuantity that return the original products quantity.
+•	Added a new add method to sum product quantities.
+•	Added a new subtract method to calculate the difference of product quantities. 
+
+ShoppingCart changelog:
+•	Made ShoppingCart class extend from Inventory class.
+•	Initialized totalPrice and cartItem attributes.
+•	Created constructor for ShoppingCart.
+•	Added a new addToCart method that adds the new item to the cart and adds a repetitive item to the quantity of that item. Then adds the price * quantity to the total price of the cart
+•	Added a new removeFromCart method that removes the product from the cart if its in the cart, returns old cart if item not in cart. Then subtracts the price * quantity from the total price of the cart
+•	Added new getProducts method to return the items in the cart as an array
+
