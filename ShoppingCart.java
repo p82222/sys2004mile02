@@ -11,21 +11,21 @@ import java.util.*;
 public class ShoppingCart extends Inventory{
 
     private double totalPrice;
-    private ArrayList<Inventory> cartItem;
+    private ArrayList<Product> cartItem;
 
     /**
      * Creates a new Product with the supplied attributes.
      */
     public ShoppingCart() {
         this.totalPrice = 0;
-        this.cartItem = new ArrayList<Inventory>();
+        this.cartItem = new ArrayList<Product>();
     }
 
     /**
      * Adds product to cart
      * @param newProduct
      */
-    public void addToCart(ShoppingCart newProduct){
+    public void addToCart(Product newProduct){
 
         //see if product if repetitive
         int currIndex = cartItem.indexOf(newProduct);
@@ -46,7 +46,7 @@ public class ShoppingCart extends Inventory{
      * Removes product from cart
      * @param oldProduct
      */
-    public void removeFromCart(ShoppingCart oldProduct){
+    public void removeFromCart(Product oldProduct){
 
         //find product in cart
         int currIndex = cartItem.indexOf(oldProduct);
@@ -65,13 +65,13 @@ public class ShoppingCart extends Inventory{
         if(oldProduct.quantity > Inventory.currItem.quantity){
             oldProduct.quantity = currItem.quantity;
         }
-        totalPrice -= oldProduct.price * oldProduct.quantity;
-        currItem.subtract(oldProduct);
 
         //if product quantity = 0, remove product from cart
         if(currItem.quantity == 0){
             cartItem.remove(currIndex);
         }
+        totalPrice -= oldProduct.price * oldProduct.quantity;
+        currItem.subtract(oldProduct);
     }
 
 
@@ -85,3 +85,4 @@ public class ShoppingCart extends Inventory{
         return productArray;
     }
 }
+
