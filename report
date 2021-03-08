@@ -1,0 +1,10 @@
+Names: 
+Chia-Yu Liu, St#100698737
+Keefer Belanger, St#101152085
+
+Questions:
+1.
+2.
+3. As you cannot use multiple inheritances, with composition you can have more functionality. Its also easier to modify later by changing behavior of methods. 
+Able to reuse code without an is-a association. Better encapsulation.
+4. Using inheritance you can define a class by using a different class which can make creating that class easier and it also lets us reuse code.
