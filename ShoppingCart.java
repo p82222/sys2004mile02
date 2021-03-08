@@ -75,7 +75,7 @@ public class ShoppingCart extends Inventory{
 
 
         totalPrice -= oldProduct.price * oldProduct.quantity;
-        currItem.subtract(oldProduct);
+        //currItem.subtract(oldProduct);
     }
 
 
