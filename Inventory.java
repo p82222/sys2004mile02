@@ -11,7 +11,6 @@ public class Inventory{
      * The Inventory class will track the state of the inventory of your system. It should keep track of the type
      * and quantity of each Product.
      */
-    protected static Inventory currItem;
     protected int price;                        // price of Product
     protected int quantity = 0;                 // quantity of Product
     private Product product = null;             // set a default product as null
@@ -179,20 +178,5 @@ public class Inventory{
      * Get this Product's quantity
      */
     public int getQuantity(){ return quantity; }
-
-    /**
-     * add product to another product
-     * @param randomProduct
-     */
-    public void add(ShoppingCart randomProduct) {
-        this.quantity += randomProduct.inv.quantity;
-    }
-
-    /**
-     * subtract random product from product
-     * @param randomProduct
-     */
-    public void subtract(ShoppingCart randomProduct){
-        this.quantity -= randomProduct.inv.quantity;
-    }
 }
+
