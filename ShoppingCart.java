@@ -28,12 +28,10 @@ public class ShoppingCart extends Inventory{
      */
     public void addToCart(ShoppingCart newProduct){
 
-<<<<<<< HEAD
         if (cartItem.contains(newProduct)){
             int id = newProduct.getId();
             this.removeQuantity(id);
         }else{
-=======
         //see if product is repetitive
         int currIndex = cartItem.indexOf(newProduct);
 
@@ -44,16 +42,13 @@ public class ShoppingCart extends Inventory{
             int id = newProduct.getId();
             this.removeQuantity(id);
         }
-<<<<<<< HEAD
-
-=======
         //if similar products add to quantity
         else{
             ShoppingCart currItem = (ShoppingCart) cartItem.get(currIndex);
             currItem.add(newProduct);
         }
         //sum total price with quantity of product and that products price
->>>>>>> 5adddf5628f7c5094a30a231bab221733bc10643
+<<<<<<< HEAD
         totalPrice += newProduct.price * newProduct.quantity;
     }
 
