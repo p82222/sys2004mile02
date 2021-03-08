@@ -67,4 +67,8 @@ public class ShoppingCart {
         cartItem.toArray(productArray);
         return productArray;
     }
+
+    public ArrayList<Product> getCartItem(){
+        return cartItem;
+    }
 }
