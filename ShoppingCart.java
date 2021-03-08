@@ -11,23 +11,24 @@ import java.util.*;
 public class ShoppingCart extends Inventory{
 
     private double totalPrice;
-    private ArrayList<Product> cartItem;
+    private ArrayList<ShoppingCart> cartItem;
+    protected Inventory inv = new Inventory();
 
     /**
      * Creates a new Product with the supplied attributes.
      */
     public ShoppingCart() {
         this.totalPrice = 0;
-        this.cartItem = new ArrayList<Product>();
+        this.cartItem = new ArrayList<ShoppingCart>();
     }
 
     /**
      * Adds product to cart
      * @param newProduct
      */
-    public void addToCart(Product newProduct){
+    public void addToCart(ShoppingCart newProduct){
 
-        //see if product if repetitive
+        //see if product is repetitive
         int currIndex = cartItem.indexOf(newProduct);
 
         //if its a new product add to cart
@@ -39,6 +40,7 @@ public class ShoppingCart extends Inventory{
             ShoppingCart currItem = (ShoppingCart) cartItem.get(currIndex);
             currItem.add(newProduct);
         }
+        //sum total price with quantity of product and that products price
         totalPrice += newProduct.price * newProduct.quantity;
     }
 
@@ -46,7 +48,7 @@ public class ShoppingCart extends Inventory{
      * Removes product from cart
      * @param oldProduct
      */
-    public void removeFromCart(Product oldProduct){
+    public void removeFromCart(ShoppingCart oldProduct){
 
         //find product in cart
         int currIndex = cartItem.indexOf(oldProduct);
@@ -70,7 +72,7 @@ public class ShoppingCart extends Inventory{
         if(currItem.quantity == 0){
             cartItem.remove(currIndex);
         }
-        totalPrice -= oldProduct.price * oldProduct.quantity;
+        totalPrice -= oldProduct.price * oldProduct.inv.quantity;
         currItem.subtract(oldProduct);
     }
 
@@ -85,4 +87,3 @@ public class ShoppingCart extends Inventory{
         return productArray;
     }
 }
-
