@@ -27,6 +27,10 @@ public class StoreManager {
         this.shoppingCarts = new HashMap<Integer, ShoppingCart>();
     }
 
+    public ShoppingCart getShoppingCart(){
+        return newCart;
+    }
+
     public StoreManager(Inventory inventory){
         this.inventory = inventory;
     }
@@ -43,24 +47,17 @@ public class StoreManager {
     /**
      * Checks the quantity exists and if it does processes the transaction
      */
-    public void processTransaction(int cart[][]){
-        float total = 0;
-        boolean success = true;
-        for(int[] i : cart) {
-            if (inventory.getQuantity(i[0]) >= i[1]) {
-                total += inventory.getProductInfo(i[0]).getPrice() * i[1];
-                inventory.removeQuantity(i[0]);
-            } else {
-                success = false;
-                break;
-            }
-        }
-        if(!success){
-            System.out.println("Transaction Failed");
+    public double processTransaction(ShoppingCart cart){
+        double total = 0;
+
+        if(cart.getCartItem().size() == 0){
+            return 0;
         }
         else{
-            System.out.println("Total = " +total);
+            total = cart.getTotalPrice();
+            System.out.println("Total = " + total);
         }
+        return total;
     }
 
     public int assignNewCartID(){
@@ -71,24 +68,11 @@ public class StoreManager {
     }
 
     public void addToCart(Product product){
+        if(products.containsKey(product)){
             this.newCart.addToCart(product);
-    }
-
-    public double checkout(int cardID){
-        double total = 0;
-        if (shoppingCarts.containsKey(cardID)) {
-            ShoppingCart newCart = new ShoppingCart();
-            newCart = shoppingCarts.get(cardID);
-            for (Product p : newCart.getCartItem()) {
-                total = total + p.getPrice();
-            }
-
-        }else{
-            System.out.println("Shopping Cart not exist.");
         }
-        return total;
-
     }
+
 
     public void quit(int cardID){
         if (shoppingCarts.containsKey(cardID)) {
@@ -104,6 +88,37 @@ public class StoreManager {
         }
 
 
+    }
+
+    public void browse(){
+        System.out.println("STOCK  |  PRODUCT NAME  |  UNIT PRICE  |  OPTION");
+        for (Product item : this.inventory.getProducts().keySet()) {
+
+            System.out.println(item.getQuantity() + " | "
+                    + item.getName() + " | "
+                    + item.getPrice());
+        }
+
+    }
+
+    public Product findProduct(String name){
+        Product find = new Product();
+        for (Product item : this.inventory.getProducts().keySet()){
+            if(item.getName().equals(name)){
+                find = item;
+            }
+        }
+        return find;
+    }
+
+    public void removeFromCart(Product product){
+        if(products.containsKey(product)){
+            this.newCart.removeFromCart(product);
+        }
+    }
+
+    public int getCartID(){
+        return cartID;
     }
 
 

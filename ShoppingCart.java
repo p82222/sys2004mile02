@@ -68,11 +68,17 @@ public class ShoppingCart {
         return productArray;
     }
 
-    /**
-     * accessor for cartItem
-     * @return cartItem ArrayList
-     */
     public ArrayList<Product> getCartItem(){
         return cartItem;
     }
+
+    public double getTotalPrice(){
+        return totalPrice;
+    }
+
+
+
+
+
+
 }
