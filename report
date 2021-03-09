@@ -3,12 +3,13 @@ Chia-Yu Liu, St#100698737
 Keefer Belanger, St#101152085
 
 Questions:
-1.
-2. It would make sense for ShoppingCart to extend Inventory as the shopping cart can just use the Inventories quantity methods to increase the quantity of products in the shopping cart.
+1. The relationship between StoreView and StoreManager is that of association as they use each other’s objects and methods.
+2. The shopping cart class does not need to extend inventory if the product class extends inventory as you can call the product which makes sense since it’s the thing getting put into the cart and call any inventory methods through the product class.
 3. As you cannot use multiple inheritances, with composition you can have more functionality. Its also easier to modify later by changing behavior of methods. Able to reuse code without an is - a association. Better encapsulation.
 4. Using inheritance you can define a class by using a different class which can make creating that class easier and it also lets us reuse code.
 
 ChangeLog
+
 Inventory changelog:
 •	Added 3 new protected attributes, currItem, price, and quantity so the shopping cart class can inherit from them.
 •	Added a new getQuantity that return the original products quantity.
@@ -21,5 +22,18 @@ ShoppingCart changelog:
 •	Created constructor for ShoppingCart.
 •	Added a new addToCart method that adds the new item to the cart and adds a repetitive item to the quantity of that item. Then adds the price * quantity to the total price of the cart
 •	Added a new removeFromCart method that removes the product from the cart if its in the cart, returns old cart if item not in cart. Then subtracts the price * quantity from the total price of the cart
-•	Added new getProducts method to return the items in the cart as an array
+•	Added new getProducts method to return the items in the cart as an array.
+•	Added getCartItem method to return cartItem
+
+StoreManager changelog:
+•	Added a new assignNewCartID method to create new cartID with the same size as shopping carts and returning that cartID
+•	Added new addToCart method that adds product to newCart by calling addToCart from the ShoppingCart class.
+•	Added new checkout method that takes the products from the cart and adds them to final total for checkout.
+•	Added new quit method that lets user quit out of the store without checking out and putting all products back to the inventory.
+
+StoreView changelog:
+•	Created constructor for StoreView
+•	Displays the store ui
+
+
 
