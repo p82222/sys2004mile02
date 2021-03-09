@@ -9,6 +9,7 @@ import java.util.*;
  * Definition of shopping cart class
  */
 public class ShoppingCart {
+    
 
     private double totalPrice;
     private ArrayList<Product> cartItem;

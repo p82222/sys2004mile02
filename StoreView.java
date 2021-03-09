@@ -6,12 +6,19 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * This class will keep track the states of StoreView
+ */
 public class StoreView {
 
     private static StoreManager storeManager;
 
     private static int cartID;
 
+    /**
+     * Creates a new StoreView with the supplied attributes.
+     * Set default values upon object creation
+     */
     public StoreView(StoreManager storeManager, int cartID){
         this.storeManager = storeManager;
         this.cartID = cartID;
@@ -20,75 +27,75 @@ public class StoreView {
     public static void main(String[] args) {
 
         /**
-         * This is the first product
+         * the first product
          */
-
         Product apple = new Product("apple", 001, 1.0);
         /**
-         * This is the inventory
+         * the inventory
          */
         Inventory inventory = new Inventory(apple, 10);
 
         /**
-         * This is the manager for the StoreView
+         * the manager for the StoreView
          */
         StoreManager manager = new StoreManager(inventory);
 
         /**
-         * This is the StoreView variable
+         * the StoreView variable
          */
         StoreView storeView = new StoreView(manager, manager.assignNewCartID());
 
         /**
-         * This is the shopping cart
+         * the shopping cart
          */
         ShoppingCart cart = new ShoppingCart();
 
         /**
-         * This takes an input from the user
+         * Taking an input from the user
          */
         Scanner in = new Scanner(System.in);
 
         /**
-         * This is an empty string to be used later
+         * empty string to use as input string
          */
-        String command = "";
+        String reply = "";
 
         System.out.print("CHOOSE YOUR STOREVIEW >>> ");
 
         /**
-         * This stores the user input
+         * accepting the user input
          */
         int storeCount = in.nextInt();
 
-        //This loop would run forever until the system shuts down.
+
         while(true) {
 
             /**
-             * This stores the shopping cart from the manager
+             * create a shooping cart
              */
             cart = storeManager.getShoppingCart();
 
             System.out.println("CART >>> " + cartID);
 
-            while (!command.equals("quit")) {
+            while (!reply.equals("quit")) {
 
                 /**
                  *This is the HashMap that stores the options and the items that options point to.
                  */
                 HashMap<Integer, Integer> store = new HashMap<>();
 
-                System.out.println("\nCommand Option:\n Browse\n Add\n Remove\n Checkout\n quit\n\n" +
-                        "Please enter a command from above:");
+                System.out.println("Please enter a command : (B/A/R/C/Q)");
+                System.out.println("Option: Browse, Add, Remove, Checkout and Quit");
 
-                command = in.next().toLowerCase();
 
-                if (!command.equals("quit")) {
+                reply = in.next().toUpperCase();
 
-                    System.out.println("|----------------THE SMARTPHONE STORE----------------|");
+                if (!reply.equals("Q")) {
+
+                    System.out.println("|----------------THE STORE----------------|");
                 }
 
-                if (command.equals("browse")) {
+                if (reply.equals("B")) {
 
                     storeManager.browse();
 
@@ -102,11 +109,10 @@ public class StoreView {
 
                     System.out.println("CART >>> " + cartID);
 
-                } else if (command.equals("add")) {
+                } else if (reply.equals("A")) {
                     System.out.println("\\-------------------------ADD------------------------/\n");
 
                     storeManager.browse();
-                    int count = 0;
 
 
                     System.out.print("\nWhat item you like to add to your cart? : ");
@@ -117,7 +123,7 @@ public class StoreView {
 
 
 
-                } else if (command.equals("remove")) {
+                } else if (reply.equals("R")) {
 
                     //checking if cart is empty
                     if (cart.getCartItem().size() > 0) {
@@ -130,29 +136,23 @@ public class StoreView {
                         String remove = in.next().toUpperCase();
                         Product removeproduct = storeManager.findProduct(remove);
                         storeManager.removeFromCart(removeproduct);
-
-
-
-
                     } else {
 
                         System.out.println("\nNo item in the cart.");
                     }
-                } else if (command.equals("checkout")) {
+                } else if (reply.equals("C")) {
 
+                    //proceed check out
                     storeManager.processTransaction(cart);
 
 
-                } else if (command.equals("quit")) {
-
+                } else if (reply.equals("Q")) {
+                    //quit the process
                    storeManager.quit(storeManager.getCartID());
+                   break;
                 }
             }
-
             System.out.println("\nThanks for shopping.\n");
-
-
-
 
         }
     }
