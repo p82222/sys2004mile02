@@ -15,22 +15,30 @@ public class StoreManager {
      * Creates a new inventory
      */
     private Inventory inventory = new Inventory();
-
     private HashMap<Integer,ShoppingCart> shoppingCarts;
-
     private int cartID;
-
     private ShoppingCart newCart = new ShoppingCart();
 
+    /**
+     * Constructor for StoreManager
+     */
     public StoreManager(){
         this.inventory = null;
         this.shoppingCarts = new HashMap<Integer, ShoppingCart>();
     }
 
+    /**
+     * Accessor for ShoppingCart
+     * @return newCart
+     */
     public ShoppingCart getShoppingCart(){
         return newCart;
     }
 
+    /**
+     * Constructor for StoreManager
+     * @param inventory
+     */
     public StoreManager(Inventory inventory){
         this.inventory = inventory;
     }
@@ -60,6 +68,10 @@ public class StoreManager {
         return total;
     }
 
+    /**
+     * Creates new cartID
+     * @return cartID int
+     */
     public int assignNewCartID(){
         ShoppingCart newCart = new ShoppingCart();
         cartID = shoppingCarts.size();
@@ -67,13 +79,20 @@ public class StoreManager {
         return cartID;
     }
 
+    /**
+     * Adds product to cart
+     * @param product
+     */
     public void addToCart(Product product){
         if(products.containsKey(product)){
             this.newCart.addToCart(product);
         }
     }
 
-
+    /**
+     * Lets user quit store and puts products back into inventory 
+     * @param cardID
+     */
     public void quit(int cardID){
         if (shoppingCarts.containsKey(cardID)) {
             ShoppingCart newCart = new ShoppingCart();
@@ -90,6 +109,9 @@ public class StoreManager {
 
     }
 
+    /**
+     * Lets user browse inventory
+     */
     public void browse(){
         System.out.println("STOCK  |  PRODUCT NAME  |  UNIT PRICE  |  OPTION");
         for (Product item : this.inventory.getProducts().keySet()) {
@@ -101,6 +123,11 @@ public class StoreManager {
 
     }
 
+    /**
+     * Find specified product in inventory
+     * @param name
+     * @return findProduct
+     */
     public Product findProduct(String name){
         Product find = new Product();
         for (Product item : this.inventory.getProducts().keySet()){
@@ -111,16 +138,21 @@ public class StoreManager {
         return find;
     }
 
+    /**
+     * Removes product from cart
+     * @param product
+     */
     public void removeFromCart(Product product){
         if(products.containsKey(product)){
             this.newCart.removeFromCart(product);
         }
     }
 
+    /**
+     * Accessor for CartID
+     * @return cartID int
+     */
     public int getCartID(){
         return cartID;
     }
-
-
-
 }
