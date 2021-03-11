@@ -9,10 +9,9 @@ import java.util.*;
  * Definition of shopping cart class
  */
 public class ShoppingCart {
-    
 
     private double totalPrice;
-    private ArrayList<Product> cartItem;
+    private HashMap<Integer, Integer> cart;
     private Inventory inv = new Inventory();
 
     /**
@@ -20,62 +19,47 @@ public class ShoppingCart {
      */
     public ShoppingCart() {
         this.totalPrice = 0;
-        this.cartItem = new ArrayList<Product>();
+        this.cart = new HashMap<Integer, Integer>();
     }
 
     /**
      * Adds product to cart
      * @param newProduct
      */
-    public void addToCart(Product newProduct){
+    public void addToCart(int productID, int quantity){
+        cart.put(productID,quantity);
 
-        if(cartItem.contains(newProduct)){
-            int id = newProduct.getId();
-            newProduct.removeQuantity(id);
-        }else{
-            cartItem.add(newProduct);
-            int id = newProduct.getId();
-            newProduct.removeQuantity(id);
-        }
-
-        totalPrice += newProduct.price * inv.quantity;
     }
 
     /**
      * Removes product from cart
      * @param oldProduct
      */
-    public void removeFromCart(Product oldProduct){
+    public void removeFromCart(int productID, int quantity){
+        // check if cart has the product by checking productID
+        if(cart.containsKey(productID)){
+            //remove the item by quantity
+            if(cart.get(productID) >= quantity ){
+                cart.put(productID, cart.get(productID) - quantity);
 
-        if(!cartItem.contains(oldProduct)){
-            return;
+            }else{
+                System.out.println("not enough item in the cart.");
+            }
         }
         else{
-            cartItem.remove(oldProduct);
-            int id = oldProduct.getId();
-            oldProduct.removeQuantity(id);
+            System.out.println("item not existing in cart.");
         }
-        totalPrice -= oldProduct.price * inv.quantity;
     }
 
 
     /**
-     * @return all items in the cart as array
+     * @return all items in the cart as ArrayList
      */
-    public ShoppingCart[] getProducts(){
+    public HashMap<Integer, Integer> getCart(){
 
-        ShoppingCart[] productArray = new ShoppingCart [cartItem.size()];
-        cartItem.toArray(productArray);
-        return productArray;
+        return cart;
     }
 
-    public ArrayList<Product> getCartItem(){
-        return cartItem;
-    }
-
-    public double getTotalPrice(){
-        return totalPrice;
-    }
 
 
 
