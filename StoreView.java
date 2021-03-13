@@ -15,6 +15,10 @@ public class StoreView {
 
     private static int cartID;
 
+    public StoreView(){
+        this(new StoreManager(),0);
+    }
+
     /**
      * Creates a new StoreView with the supplied attributes.
      * Set default values upon object creation
@@ -26,135 +30,93 @@ public class StoreView {
 
     public static void main(String[] args) {
 
+
         /**
          * the first product
          */
-        Product apple = new Product("apple", 001, 1.0);
+        Product apple = new Product("apple", 101, 1.0);
+        Product banana = new Product("banana", 202, 2.0);
+        Product iPhone = new Product("iPhone", 303, 3.0);
+        Product iPad = new Product("iPad",404 , 4.0);
+        Product MacBook = new Product("MacBook", 505, 5.0);
+
+
+
         /**
          * the inventory
          */
-        Inventory inventory = new Inventory(apple, 10);
+        Inventory inventor1 = new Inventory(apple, 10);
+        Inventory inventor2 = new Inventory(banana, 10);
+        Inventory inventor3 = new Inventory(iPhone, 10);
+        Inventory inventor4 = new Inventory(iPad, 10);
+        Inventory inventor5 = new Inventory(MacBook, 10);
+
+
+
+
+
 
         /**
          * the manager for the StoreView
          */
-        StoreManager manager = new StoreManager(inventory);
-
-        /**
-         * the StoreView variable
-         */
-        StoreView storeView = new StoreView(manager, manager.assignNewCartID());
-
-        /**
-         * the shopping cart
-         */
-        ShoppingCart cart = new ShoppingCart();
-
-        /**
-         * Taking an input from the user
-         */
-        Scanner in = new Scanner(System.in);
-
-        /**
-         * empty string to use as input string
-         */
-        String reply = "";
-
-        System.out.print("CHOOSE YOUR STOREVIEW >>> ");
-
-        /**
-         * accepting the user input
-         */
-        int storeCount = in.nextInt();
+        StoreManager manager = new StoreManager();
+        ShoppingCart currentCart;
 
 
-        while(true) {
-
-            /**
-             * create a shooping cart
-             */
-            cart = storeManager.getShoppingCart();
-
-            System.out.println("CART >>> " + cartID);
-
-            while (!reply.equals("quit")) {
-
-                /**
-                 *This is the HashMap that stores the options and the items that options point to.
-                 */
-                HashMap<Integer, Integer> store = new HashMap<>();
-
-                System.out.println("Please enter a command : (B/A/R/C/Q)");
-                System.out.println("Option: Browse, Add, Remove, Checkout and Quit");
-
-
-                reply = in.next().toUpperCase();
-
-                if (!reply.equals("Q")) {
-
-                    System.out.println("|----------------THE STORE----------------|");
-                }
-
-                if (reply.equals("B")) {
-
-                    storeManager.browse();
-
-                    System.out.print("\nGO TO ANOTHER STOREVIEW? (Y) >>> ");
-                    String newStore = in.next().toUpperCase();
-
-                    if (newStore.equals("Y")) {
-
-                        storeView = new StoreView(manager, manager.assignNewCartID());
-                    }
-
-                    System.out.println("CART >>> " + cartID);
-
-                } else if (reply.equals("A")) {
-                    System.out.println("\\-------------------------ADD------------------------/\n");
-
-                    storeManager.browse();
-
-
-                    System.out.print("\nWhat item you like to add to your cart? : ");
-
-                    String add = in.next().toUpperCase();
-                    Product addproduct = storeManager.findProduct(add);
-                    storeManager.addToCart(addproduct);
+        StoreView sv1 = new StoreView(manager, manager.assignNewCartID());
+        StoreView sv2 = new StoreView(manager, manager.assignNewCartID());
+        StoreView sv3 = new StoreView(manager, manager.assignNewCartID());
 
 
 
-                } else if (reply.equals("R")) {
 
-                    //checking if cart is empty
-                    if (cart.getCartItem().size() > 0) {
-
-                        System.out.println("\\------------------------Remove----------------------/\n");
-                        storeManager.browse();
-
-                        System.out.print("\nWhat item you like to remove to your cart? : ");
-
-                        String remove = in.next().toUpperCase();
-                        Product removeproduct = storeManager.findProduct(remove);
-                        storeManager.removeFromCart(removeproduct);
-                    } else {
-
-                        System.out.println("\nNo item in the cart.");
-                    }
-                } else if (reply.equals("C")) {
-
-                    //proceed check out
-                    storeManager.processTransaction(cart);
+        manager.addInventory(inventor1);
+        manager.addInventory(inventor2);
+        manager.addInventory(inventor3);
+        manager.addInventory(inventor4);
+        manager.addInventory(inventor5);
 
 
-                } else if (reply.equals("Q")) {
-                    //quit the process
-                   storeManager.quit(storeManager.getCartID());
-                   break;
-                }
+
+        System.out.println("============store test from now========");
+
+        System.out.println(" pick first cart");
+
+        currentCart = manager.findCart();
+
+        boolean flag = true;
+
+        String command = manager.command();
+
+
+        //b/a/r/c/q
+        while(!command.equals("q")){
+
+            if (command.equals("b")){
+                manager.browse();
+                command = manager.command();
+            }else if (command.equals("a")){
+                manager.addToCart(currentCart);
+                command = manager.command();
+            }else if (command.equals("r")){
+                manager.removeFromCart(currentCart);
+                command = manager.command();
+            }else if(command.equals("c")){
+                double total = manager.processTransaction(currentCart);
+                System.out.println("total test:");
+                System.out.println(total);
+                break;
+            }else if(command.equals("q")){
+                manager.quit(currentCart, cartID);
+                break;
             }
-            System.out.println("\nThanks for shopping.\n");
 
         }
+        System.out.println("thanks for shopping with us today");
+
+
+
+
     }
 
 }

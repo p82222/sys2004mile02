@@ -11,7 +11,7 @@ import java.util.*;
 public class ShoppingCart {
 
     private double totalPrice;
-    private HashMap<Integer, Integer> cart;
+    private HashMap<Integer, Integer> items;
     private Inventory inv = new Inventory();
 
     /**
@@ -19,15 +19,16 @@ public class ShoppingCart {
      */
     public ShoppingCart() {
         this.totalPrice = 0;
-        this.cart = new HashMap<Integer, Integer>();
+        this.items = new HashMap<Integer, Integer>();
     }
 
     /**
      * Adds product to cart
      * @param newProduct
      */
+    //worked, tested
     public void addToCart(int productID, int quantity){
-        cart.put(productID,quantity);
+        items.put(productID,quantity);
 
     }
 
@@ -35,12 +36,13 @@ public class ShoppingCart {
      * Removes product from cart
      * @param oldProduct
      */
+
     public void removeFromCart(int productID, int quantity){
         // check if cart has the product by checking productID
-        if(cart.containsKey(productID)){
+        if(items.containsKey(productID)){
             //remove the item by quantity
-            if(cart.get(productID) >= quantity ){
-                cart.put(productID, cart.get(productID) - quantity);
+            if(items.get(productID) >= quantity ){
+                items.put(productID, items.get(productID) - quantity);
 
             }else{
                 System.out.println("not enough item in the cart.");
@@ -55,10 +57,12 @@ public class ShoppingCart {
     /**
      * @return all items in the cart as ArrayList
      */
-    public HashMap<Integer, Integer> getCart(){
+    //worked, tested
+    public HashMap<Integer, Integer> getItems(){
 
-        return cart;
+        return items;
     }
+
 
 
 

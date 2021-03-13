@@ -1,19 +1,24 @@
-//STUDENT NAME: Chia-Yu Liu
-//STUDENT ID: 100698737
-//STUDENT NAME: Keefer Belanger
-//STUDENT ID: 101152085
+//STUDENT NAME: Chia-Yu Liu //
+//STUDENT ID: 100698737     //
+//STUDENT NAME: Keefer Belanger//
+//STUDENT ID: St# 101152085//
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Map;
 
-public class Inventory{
+public class Inventory {
+
+
+
 
     /**
      * The Inventory class will track the state of the inventory of your system. It should keep track of the type
      * and quantity of each Product.
      */
-    protected int price;                        // price of Product
-    protected int quantity = 0;                 // quantity of Product
-    private Product product = null;             // set a default product as null
+    private int quantity = 0;                    // quantity of Product
+    private  Product product = null;             // set a defult product as null
 
     /**
      *  Using HashMap variable, products to contain the quantity data for each product.
@@ -23,12 +28,13 @@ public class Inventory{
      */
     private HashMap<Product, Integer> products = new HashMap<Product, Integer>();      // products the inventory is tracking
 
+
     /**
      * Creates a new Inventory with the supplied attributes.
      * Set default values upon object creation
      */
     public Inventory(Product product, int quantity) {
-        super();
+
         this.product = product;
         this.quantity = quantity;
         this.products.put(product, quantity);
@@ -42,6 +48,8 @@ public class Inventory{
         this.product = null;
         this.quantity = 0;
     }
+
+
 
     /**
      * Author: Chia-Yu Liu
@@ -57,12 +65,15 @@ public class Inventory{
     public void addQuantity(int id) {
         for (Map.Entry<Product, Integer> set : products.entrySet()) {
             if(set.getKey().getId() == id){
-                Scanner keyboard = new Scanner(System.in);
-                System.out.println("enter adding quantity amount");
-                int num = keyboard.nextInt();
-                num += set.getValue();
-                set.setValue(num);
-                return;
+
+                int newnum = set.getValue()-1;
+                if (newnum < 0){
+                    set.setValue(0);
+                    return;
+                }else{
+                    set.setValue(set.getValue()+1);
+                    return;
+                }
             }
         }
         Scanner keyboard = new Scanner(System.in);
@@ -79,6 +90,7 @@ public class Inventory{
         this.products.put(product, num);
         return;
     }
+
 
     /**
      * Author: Chia-Yu Liu
@@ -118,33 +130,32 @@ public class Inventory{
     public void removeQuantity(int id) {
         for (Map.Entry<Product, Integer> set : products.entrySet()) {
             if(set.getKey().getId() == id){
-                Scanner keyboard = new Scanner(System.in);
-                System.out.println("how much quantity to remove?");
-                int num = keyboard.nextInt();
-                int newnum = set.getValue()-num;
+
+                int newnum = set.getValue()-1;
                 if (newnum < 0){
                     set.setValue(0);
                     return;
                 }else{
-                    set.setValue(set.getValue()-num);
+                    set.setValue(set.getValue()-1);
                     return;
                 }
             }
         }
         System.out.println("Product not in inventory.");
         return;
+
     }
 
     /**
      * Author: Chia-Yu Liu
      *
-     * Getter menthod for the Hashmap products
+     * Getter method for the Hashmap products
      *
-     * @param products
+     *
      * @retuen Hashmap products
      *
      */
-    public HashMap<Product, Integer> getProducts(HashMap<Product, Integer> products) {
+    public HashMap<Product, Integer> getProducts() {
 
         return this.products;
 
@@ -172,11 +183,11 @@ public class Inventory{
         }
         System.out.println("no such product");
         return null;
+
     }
 
-    /**
-     * Get this Product's quantity
-     */
-    public int getQuantity(){ return quantity; }
-}
 
+
+
+
+}
